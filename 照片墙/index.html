@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			ul{
+				
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			#box{
+				position: relative;
+				width: 1100px;
+				height: 500px;
+			}
+			#box li{
+				float: left;
+				cursor: move;
+				margin: 10px;
+			}
+			#box img{
+				display: block;
+				height: 125px;
+				width: 200px;
+			}
+			#sort{
+				margin-left: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="button" id="sort" value="随机" />
+		<ul id="box">
+			<li><img src="img/1.jpg"/></li>
+			<li><img src="img/2.jpg"/></li>
+			<li><img src="img/3.jpg"/></li>
+			<li><img src="img/4.jpg"/></li>
+			<li><img src="img/5.jpg"/></li>
+			<li><img src="img/6.jpg"/></li>
+			<li><img src="img/7.jpg"/></li>
+			<li><img src="img/8.jpg"/></li>
+			<li><img src="img/9.jpg"/></li>
+			<li><img src="img/10.jpg"/></li>
+			<li><img src="img/11.jpg"/></li>
+			<li><img src="img/12.jpg"/></li>
+			<li><img src="img/13.jpg"/></li>
+			<li><img src="img/14.jpg"/></li>
+			<li><img src="img/15.jpg"/></li>
+		</ul>
+	</body>
+	<script src="js/tools.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/MTween3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var sort = document.getElementById("sort");
+		var allLi = document.getElementsByTagName("li");
+		var lefts = [];
+		var ranArr = [];
+		var z = 1;
+		
+		for(var i=0; i<allLi.length; i++){
+			lefts.push({left:allLi[i].offsetLeft,top:allLi[i].offsetTop})
+		}
+		for(var i=0; i<allLi.length; i++){
+			allLi[i].style.position = 'absolute';
+			allLi[i].style.left = lefts[i].left + 'px';
+			allLi[i].style.top = lefts[i].top + 'px';
+			allLi[i].style.margin = 0;
+			ranArr.push(i);
+		}
+		
+		for(var i=0; i<allLi.length; i++){
+			allLi[i].index = i;
+			allLi[i].onmousedown = function (e){
+				this.style.zIndex = z++;
+				var disX = e.clientX - this.offsetLeft;
+				var disY = e.clientY - this.offsetTop;
+				var _this = this;
+				document.onmousemove = function (e){
+					_this.style.left = e.clientX - disX + 'px';
+					_this.style.top = e.clientY - disY + 'px';
+					for(var i=0; i<allLi.length; i++){
+						allLi[i].style.border = '';
+					}
+					var tg = pz(_this);
+					if(tg){
+						tg.style.border = '1px solid red';
+					}
+				}
+				document.onmouseup = function (e){
+					this.onmousemove = this.onmouseup = null;
+					var tg = pz(_this);
+					if(tg){
+						MTween(_this,{top:lefts[tg.index].top,left:lefts[tg.index].left},200);
+						MTween(tg,{top:lefts[_this.index].top,left:lefts[_this.index].left},200);
+						tg.style.border = '';
+						var temp = _this.index;
+						_this.index = tg.index;
+						tg.index = temp;
+						
+					}else{
+						MTween(_this,{top:lefts[_this.index].top,left:lefts[_this.index].left},200);
+					}
+				}
+				return false;
+			}
+		}
+		sort.onclick = function (){
+			ranArr.sort(function (a,b){
+				return Math.random() - 0.5;
+			});
+			for(var i=0; i<allLi.length; i++){
+				MTween(allLi[i],{
+    					top:lefts[ranArr[i]].top,
+    					left:lefts[ranArr[i]].left
+    				},300)
+				allLi[i].index = ranArr[i];
+			}
+		};
+		/*sort.onclick = function(){
+			for (var i = 0; i < allLi.length; i++) {
+				if(allLi[i].timer) return
+			}
+		 	lefts.sort(function (){
+				return  Math.random()-0.5;
+			});
+			for (var j = 0; j < lefts.length; j++) {
+				MTween(allLi[j],{left:lefts[j].left,top:lefts[j].top},500);
+			}
+		}*/
+		function pz(obj){
+			var num = Infinity;
+			var index = -1;
+			for (var i = 0; i < allLi.length; i++) {
+				if(duang(obj,allLi[i])&&obj!==allLi[i]){
+					var n = jl(obj,allLi[i]);
+					if(n<num){
+						num = n;
+						index = i;
+					}
+				}
+			}
+			if(index!=-1){
+				return allLi[index];
+			}else{
+				return false;
+			}
+			
+		}
+		function jl(obj1,obj2){
+			var a = obj1.offsetLeft - obj2.offsetLeft;
+			var b = obj1.offsetTop - obj2.offsetTop;
+			return Math.sqrt(a*a+b*b);
+		}
+/*		for (var s = 0 ; s<allLi.length;s++) {
+			allLi[s].index = s;
+			var obj = {
+				left:allLi[s].offsetLeft,
+				top:allLi[s].offsetTop
+			}
+			lefts.push(obj);
+		}
+		//转换成定位布局
+		for (var j = 0; j < lefts.length; j++) {
+			allLi[j].style.position = 'absolute';
+			allLi[j].style.margin = 0;
+			allLi[j].style.left = lefts[j].left+'px';
+			allLi[j].style.top = lefts[j].top+'px';
+		}
+		
+		for (var i = 0; i < allLi.length; i++) {
+			allLi[i].onmousedown = function(ev){
+		  	  	var disL = ev.clientX - this.offsetLeft;
+		  	  	var disT = ev.clientY - this.offsetTop;
+		  	  	var num = this.index;
+		  	  	var _this = this;
+		  	  	this.style.zIndex = z++;
+		  	  	document.onmousemove = function(ev){
+		  	  	  	var l =  ev.clientX - disL;
+		  	  	  	var t = ev.clientY - disT;
+		  	  	  	if(l<0){
+		  	  	  		l=0;
+		  	  	  	}
+		  	  	  	for (var i = 0; i < allLi.length; i++) {
+		  	  	  		allLi[i].style.border = '';
+		  	  	  	}
+		  	  	  	var zd = pz(_this);
+		  	  	  	if(zd){
+		  	  	  		zd.style.border = '1px solid red';
+		  	  	  	}
+		  	  	  	_this.style.left = l+'px';
+		  	  	  	_this.style.top = t+'px';
+		  	  	}
+		  	  	document.onmouseup = function(){
+		  	  	  	document.onmousemove = document.onmouseup = null; 
+		  	  	  	var zd = pz(_this);
+		  	  	  	console.log(zd);
+		  	  	  	if(zd){
+		  	  	  		MTween(zd,{top:lefts[_this.index].top,left:lefts[_this.index].left},500);
+		  	  	  		MTween(_this,{top:lefts[zd.index].top,left:lefts[zd.index].left},500);
+		  	  	  		zd.style.border = '';
+		  	  	  		var temp = _this.index;
+		  	  	  		_this.index = zd.index;
+		  	  	  		zd.index = temp; 
+		  	  	  	}else{
+		  	  	  		MTween(allLi[_this.index],{left:lefts[_this.index].left,top:lefts[_this.index].top},500)
+		  	  	  	}
+		  	  	}
+		  	  	return false
+		  	}
+		}*/
+	</script>
+</html>

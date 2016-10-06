@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			#scrollBox {
+				height: 100%;
+				width: 30px;
+				border: 1px solid #000;
+				position: absolute;
+				right: 0;
+				z-index: 99;
+			}
+			#scrollBar {
+				width: 100%;
+				/*height: 50px;*/
+				background: red;
+				position: absolute;
+				left: 0;
+				top:0;
+				z-index: 99;
+			}
+
+			#main {
+				width: 200px;
+				height: 300px;
+				overflow: hidden;
+				border: 1px solid #000;
+				position: relative;
+				left: 400px;
+				top:30px;
+			}
+
+			#content{
+				background: yellow;
+				position: absolute;
+				left: 0;
+				top:0;
+				width: 100%;
+			}
+
+			p{
+				margin:0;
+			}
+
+		</style>
+		<script>
+			/*
+				拖动scrollBar
+			*/
+			window.onload = function(){
+				
+				var scrollBar = document.getElementById("scrollBar");
+				var scrollBox = document.getElementById("scrollBox");
+
+				var main = document.getElementById("main");
+				var content = document.getElementById("content")
+
+				/*
+
+					content要走的top值 = scrollBar走的top/maxJL * (main的内容高度-main的可视区的高度)
+				*/
+			
+				
+				//scrollHeight包含元素的margin，offsetHeight不包含margin；
+				var conMax = main.clientHeight-main.scrollHeight;
+				var hgh = main.clientHeight/main.scrollHeight*main.clientHeight;
+				scrollBar.style.height = hgh+'px';
+				var max = scrollBox.clientHeight - hgh;
+				scrollBar.onmousedown = function(ev){
+				  	var disY = ev.clientY-scrollBar.offsetTop;
+				  	document.onmousemove = function(ev){
+				  	  	  var t = ev.clientY-disY;
+				  	  	  if(t<0) t= 0;
+				  	  	  if(t>max) t= max;
+				  	  	  var scroll = t/max;
+				  	  	  console.log(scroll,conMax);
+				  	  	  scrollBar.style.top = t+'px';
+				  	  	  content.style.top = scroll*conMax+'px';
+				  	}
+				  	document.onmouseup = function(){
+				  	  	document.onmousemove = null;  
+				  	}
+				}
+
+			};
+		</script>
+	</head>
+
+	<body>
+		
+		<div id="main">
+			<div id="scrollBox">
+				<div id="scrollBar"></div>
+			</div>
+			<div id="content">
+				<p>开始</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p><p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p><p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p><p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p><p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p><p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p><p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p><p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p><p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p><p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p><p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p><p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p><p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p><p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p><p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>123</p>
+				<p>结束</p>
+			</div>
+		</div>
+	</body>
+</html>

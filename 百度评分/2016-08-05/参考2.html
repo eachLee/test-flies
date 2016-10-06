@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>无标题文档</title>
+<style>
+body,ul,p{margin:0;padding:0;}
+img{display:none;float:left;}
+#box{width:314px;height:148px;margin:30px auto;font-family:Arial, Helvetica, sans-serif;}
+#list2{display:none;}
+#box div{width:292px;height:104px;border:1px solid #c6c6c6;padding:10px 0 0 10px; }
+#top{height:30px;}
+span{display:block;width:80px;height:30px;border:1px solid #c6c6c6;float:left;font-size:14px;line-height:30px;text-align:center;color:#737373;border-bottom:none;}
+.show{width:80px;height:30px;border:1px solid #c6c6c6;border-bottom:none;color:#000;background:#ccc;}
+ul {float:left;width:170px;height:96px;}
+li{width:170px;height:31px;font-size:12px;line-height:30px;margin:0 0 1px 1px;background:#dee7e7;list-style:none;}
+li a{text-decoration:none;color:#8c9191;padding-left:7px;}
+.active{background:#636363;display:block;}
+.active a{color:#fff;}
+.show1{display: block;}
+.hide{display: none;}
+</style>
+<script src='./tools.js'></script>
+<script>
+	//思路:
+	//让第一个 走完 然后走第二个；
+	//最后添加事件；
+	eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('z.u=b(){4 9=$(\'t\',$(\'#s\')),6=$(\'v\',$(\'#r\'));4 n=0;4 m=0;4 f=l;e();b e(a){a=a||0;4 2=$(\'h\',6[n]),3=$(\'g\',6[n]);8(4 i=0;i<2.5;i++){2[i].1=\'\';3[i].1=\'\'};2[a].1=\'7\';3[a].1=\'7\';f=o(b(){m++;8(4 i=0;i<2.5;i++){2[i].1=\'\';3[i].1=\'\'};2[m%2.5].1=\'7\';3[m%2.5].1=\'7\';q(m%2.5===0){k(f);n++;8(4 i=0;i<9.5;i++){9[i].1=\'\';6[i].1=\'p\';};n=n%9.5;9[n].1=\'y\';6[n].1=\'B\';e()}},A)};8(4 i=0;i<9.5;i++){4 3=$("g",6[i]);8(4 j=0;j<3.5;j++){3[j].c=j;3[j].x=b(){k(f);4 2=$(\'h\',6[n]),3=$(\'g\',6[n]);8(4 i=0;i<2.5;i++){2[i].1=\'\';3[i].1=\'\'};3[d.c].1="7";2[d.c].1="7"};3[j].w=b(){m=d.c;e(d.c)}}}}',38,38,'|className|aImg|aLi|var|length|aDiv|active|for|aSpan|num|function|index|this|fn|timer|li|img|||clearInterval|null|||setInterval|hide|if|box|top|span|onload|div|onmouseout|onmouseover|show|window|1000|show1'.split('|'),0,{}))
+
+
+
+
+</script>
+</head>
+
+<body>
+<div id="box">
+	<p id="top">
+		<span class="show">专题</span>
+		<span>视频</span>
+		<!-- <span>视频1</span> -->
+	</p>
+	<div class="show1 oDiv" id="bottom">
+		<img class="active"  src="image_two/list1.jpg" alt="" />
+		<img src="image_two/list2.jpg" alt="" />
+		<img src="image_two/list1.jpg" alt="" />
+		<ul>
+			<li class="active" ><a href="#">奇虎360纽交所上市11</a></li>
+			<li><a href="#">2011年IT领袖峰会</a></li>
+			<li><a href="#">CCBN召开 助三网融合</a></li>
+		</ul>
+	</div>
+	<div class="hide oDiv" id="bottom1">
+		<img src="image_two/list2.jpg" alt="" class="active" />
+		<img src="image_two/list1.jpg" alt="" />
+		<img src="image_two/list2.jpg" alt="" />
+		<ul>
+			<li class="active" ><a href="#">奇虎360纽交所上市22</a></li>
+			<li><a href="#">2011年IT领袖峰会</a></li>
+			<li><a href="#">CCBN召开 助三网融合</a></li>
+		</ul>
+	</div><!-- 
+	<div class="hide oDiv" id="">
+		<img src="image_two/list2.jpg" alt="" class="active" />
+		<img src="image_two/list1.jpg" alt="" />
+		<img src="image_two/list2.jpg" alt="" />
+		<ul>
+			<li class="active" ><a href="#">奇虎360纽交所上市33</a></li>
+			<li><a href="#">2011年IT领袖峰会</a></li>
+			<li><a href="#">CCBN召开 助三网融合</a></li>
+		</ul>
+	</div> -->
+	
+</div>
+</body>
+</html>

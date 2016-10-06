@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 100px;
+				height: 100px;
+				position: absolute;
+			}
+			#box1{
+				background: red;
+				left: 0;
+				top: 0;
+			}
+			#box2{
+				top: 200px;
+				left: 400px;
+				background: yellow;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+			  	var box1 = document.getElementById("box1");
+			  	var box2 = document.getElementById("box2");
+			  	function duang(obj1,obj2){
+			  		var obj1Style = obj1.getBoundingClientRect(obj1);
+			  		var obj2Style = obj2.getBoundingClientRect(obj2);
+			  		
+			  		var obj1L = obj1Style.left;
+			  		var obj1R = obj1Style.right;
+			  		var obj1T = obj1Style.top;
+			  		var obj1B = obj1Style.bottom;
+			  		
+			  		var obj2L = obj2Style.left;
+			  		var obj2R = obj2Style.right;
+			  		var obj2T = obj2Style.top;
+			  		var obj2B = obj2Style.bottom;
+			  		if(obj1L>obj2R || obj1R<obj2L || obj1T >obj2B ||obj1B<obj2T){
+			  			return false;
+			  		}else{
+			  			return true;
+			  		}
+			  	}
+			  	box1.onmousedown = function(ev){
+			  	  	var disX = ev.clientX - box1.offsetLeft;
+			  	  	var disY = ev.clientY - box1.offsetTop;
+			  	  	document.onmousemove = function(ev){
+			  	  	  	var l =   ev.clientX - disX;
+			  	  	  	var t = ev.clientY - disY;
+			  	  	  	box1.style.left = l+'px';
+			  	  	  	box1.style.top = t+'px';
+			  	  	  	if(duang(box1,box2)){
+			  	  	  		box2.style.background = 'blue';
+			  	  	  		
+			  	  	  	}else{
+			  	  	  		box2.style.background = 'yellow';
+			  	  	  	}
+			  	  	}
+			  	  	document.onmouseup = function(){
+			  	  	  	document.onmousemove = null;
+			  	  	  	document.onmouseup = null;
+			  	  	}
+			  	}
+			};
+		</script>
+	</head>
+	<body>
+		
+		<div id="box2"></div>
+		<div id="box1"></div>
+	</body>
+</html>

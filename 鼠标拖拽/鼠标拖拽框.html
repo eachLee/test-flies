@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.box{
+				position: absolute;
+				left: 0;
+				top: 0;
+				border: 1px dashed #000;
+				background: aliceblue;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+			  	document.onmousedown = function(ev){
+			  		var box = document.createElement('div');
+			  		box.className = 'box';
+			  	  	var l = ev.clientX;
+			  	  	var t = ev.clientY;
+			  	  	document.onmousemove = function(ev){
+			  	  		if(ev.which ==1){
+			  	  			box.style.left = Math.min(ev.clientX,l)+'px';
+				  	  	  	box.style.top = Math.min(ev.clientY,t)+'px';
+				  	  	  	box.style.width = Math.abs(ev.clientX-l)+'px';
+				  	  	  	box.style.height = Math.abs(ev.clientY-t)+'px';
+			  	  		}
+			  	  		box2.appendChild(box);
+			  	  	}
+			  	  	document.onmouseup = function(){
+			  	  		box2.innerHTML = '';
+			  	  	  	document.onmousemove = null;  
+			  	  	  	box.style.width =0;
+			  	  	  	box.style.border = 'none';
+			  	  	  	box.style.height =0;
+			  	  	}
+			  	  	
+			  	}  
+			};
+		</script>
+	</head>
+	<body>
+		<div id="box2">
+			
+		</div>
+	</body>
+</html>

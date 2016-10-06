@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				cursor: pointer;
+			}
+			li{
+				list-style:none;
+			}
+			.none{
+				display: none;
+			}
+			.show{
+				display: block;
+			}
+		</style>
+		<script src="js/tools.js"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+			  	var box = $('#box');
+			  	var arr2 = [];
+			  	var arr = [
+				  	{
+				  		title:'我的音乐',
+				  		child:[
+				  			{
+				  				title:'周杰伦',
+				  				child:[
+				  				{
+				  					title:'发如雪'
+				  				},
+				  				{
+				  					title:'东风破'
+				  				},
+				  				{
+				  					title:'青花瓷'
+				  				},
+				  				{
+				  					title:'双节棍'
+				  				}
+				  				]
+				  				
+				  			},
+				  			{
+				  				title:'孙燕姿',
+				  				child:[
+				  				{
+				  					title:'遇见'
+				  				},
+				  				{
+				  					title:'开始懂了'
+				  				}
+				  				]
+				  			}
+				  		]
+				  	},
+				  	{
+				  		title:'我的电影',
+				  		child:[
+				  			{
+				  				title:'王的盛宴',
+				  				child:[
+				  				{
+				  					title:'刘烨'
+				  				},
+				  				{
+				  					title:'吴彦祖'
+				  				}
+				  				]
+				  				
+				  			},
+				  			{
+				  				title:'绣春刀',
+				  				child:[
+				  				{
+				  					title:'张震'
+				  				},
+				  				{
+				  					title:'刘诗诗'
+				  				}
+				  				]
+				  				
+				  			}
+				  		]
+				  	},
+				  	{
+				  		title:'我的照片'
+				  	}
+			  	];
+			  	
+			  	function fn(arr){
+			  		var str = '';
+			  		for (var i =0; i<arr.length;i++){
+			  			str += '<li><h3>'
+			  			if(arr[i].child){
+			  				str+='<span>+</span>'
+			  			}
+			  			str+=arr[i].title;
+			  			str+='</h3>';
+			  			if(arr[i].child){
+			  				str += '<ul class="none">'
+			  				str += fn(arr[i].child);
+				  			str +='</ul>';
+				  		}
+			  			str+='</li>'
+				  	}
+			  		return str;
+				}
+			  	box.innerHTML = fn(arr);
+			  	
+			  	
+			  	var allH3 = document.getElementsByTagName("h3");
+			  	for (var i = 0; i < allH3.length; i++) {
+			  		allH3[i].onOff = true;
+			  	}
+			  		box.onclick = function(ev){
+			  			if(ev.target.nodeName === 'H3'){
+			  			var spans = ev.target.firstElementChild;
+			  			var allLi = ev.target.parentElement.parentElement;
+			  			var son = allLi.getElementsByTagName('ul');
+			  			var parent = ev.target.parentElement;
+			  			var allSpan = allLi.getElementsByTagName('span');
+			  			var h3 = parent.firstElementChild;
+			  		  	var allUl = parent.children;
+			  		  	for (var n = 0; n < allSpan.length; n++) {
+			  		  		allSpan[n].innerHTML = '+'
+			  		  	}
+			  			for (var j = 0; j < son.length; j++) {
+			  				son[j].className = 'none';
+			  				if(son[j].previousElementSibling !==ev.target){
+			  					son[j].previousElementSibling.onOff =true;
+			  				}
+			  			}
+			  			if(ev.target.onOff){
+			  				for (var i = 0; i < allUl.length; i++) {
+				  		  		allUl[i].className = 'show';
+				  		 	 }
+			  				ev.target.onOff = false;
+		  		  		}else{
+		  		  			for (var i = 0; i < allUl.length; i++) {
+			  		  			allUl[i].className = 'none';
+				  		  	}
+		  		  			ev.target.onOff = true;
+		  		  		}
+		  		  		h3.className = 'show';
+			  		  	if(ev.target.nextElementSibling&&ev.target.nextElementSibling.className=='show'){
+			  		  		spans.innerHTML = '-';
+			  		  	}
+			  		};
+			  		}
+			}
+		</script>
+	</head>
+	<body>
+		<ul id="box">
+		</ul>
+	</body>
+</html>

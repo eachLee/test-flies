@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+		.box{
+			position: absolute;
+			left: 0;
+			top: 0;
+			float: left;
+		}
+		.imgs{
+			height: 150px;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<img src="img/12.jpg" class="imgs"/>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var box = document.getElementsByClassName("box")[0];
+		var imgs = document.getElementsByClassName("imgs")[0];
+		box.onmousedown = function(ev){
+			var box2 = box.cloneNode(true);
+		  	var disX =   ev.clientX - box.offsetLeft;
+		  	var disY = ev.clientY - box.offsetTop;
+		  	function getRect(obj){
+				return obj.getBoundingClientRect();
+			}
+		  	function duang(obj1,obj2){
+		  		var obj1Info = getRect(obj1);
+		  		var obj2Info = getRect(obj2);
+		  		var obj1L = obj1Info.left;
+		  		var obj1T = obj1Info.top;
+		  		var obj1R = obj1Info.right;
+		  		var obj1B = obj1Info.bottom;
+		  		
+		  		var obj2L = obj2Info.left;
+		  		var obj2T = obj2Info.top;
+		  		var obj2R = obj2Info.right;
+		  		var obj2B = obj2Info.bottom;
+		  		if(obj1L>obj2R||obj1B<obj2T||obj1R<obj2L||obj1T>obj2B){
+		  			return false;
+		  		}else{
+		  			return true;
+		  		}
+		  		
+		  	}
+		  	document.onmousemove = function(ev){
+			  	var l =   ev.clientX-disX;
+		  	  	var t = ev.clientY-disY;
+		  	  	if(l<0){
+		  	  		l = 0;
+		  	  	}
+		  	  	if(l>document.documentElement.clientWidth-box.offsetWidth){
+		  	  		l=document.documentElement.clientWidth-box.offsetWidth;
+		  	  	}
+		  	  	if(t<0){
+		  	  		t=0;
+		  	  	}
+		  	  	if(t>document.documentElement.clientHeight-box.offsetHeight){
+		  	  		t=document.documentElement.clientHeight-box.offsetHeight;
+		  	  	}
+			  	box2.style.position = 'absolute';
+			  	box2.style.opacity = .4;
+			  	box2.style.zIndex = 9999;
+		  	  	box2.style.left = l+'px';
+		  	  	box2.style.top = t+'px';
+		  	 	document.body.appendChild(box2);
+		  	 	
+		  	}
+		  	document.onmouseup = function(){
+		  		var onOff = duang(box,box2);
+		  		if(!onOff){
+		  			box.style.left = box2.style.left;
+		  	  		box.style.top = box2.style.top;
+		  		}
+		  	  	box2.remove();
+		  	  	document.onmousemove = null;
+		  	  	document.onmouseup =null;
+		  	}
+		  	ev.preventDefault();
+		}
+	</script>
+</html>

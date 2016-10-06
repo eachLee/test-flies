@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            margin: 0;
+        }
+        img{
+            border:none;
+            vertical-align: middle;
+        }
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        #pic {
+            float: left;
+            margin:50px 0 0 50px;
+            width: 253px;
+            height: 336px;
+            border: 1px solid #000;
+            position: relative;
+        }
+        #pic img{
+            width: 253px;
+            height:336px;
+        }
+        #mask {
+            width: 175px;
+            height: 175px;
+            background: #ccc;
+            opacity: .5;
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: move;
+            display: none;
+        }
+        #show {
+            position: relative;
+            float: left;
+            margin:50px 0 0;
+            width: 350px;
+            height:350px;
+            border:1px solid #eee;
+            background-position: 10px 30px;
+            overflow: hidden;
+            display: none;
+        }
+        #bigPic {
+            width: 506px;
+            height:672px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .clearFix:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+        #list {
+            margin: 30px 0 0 50px;
+        }
+        #list li{
+            float: left;
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+        }
+        .liHover {
+            border: 2px solid #e4393c;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var pic = document.getElementById('pic');
+            var mask = document.getElementById('mask');
+            var smallPic = document.getElementById('smallPic');
+            var show = document.getElementById('show');
+            var bigPic = document.getElementById('bigPic');
+            pic.onmouseover = function () {//鼠标移入事件
+                mask.style.display = 'block';
+                show.style.display = 'block';
+            };
+            pic.onmouseout = function () {//鼠标移出事件
+                mask.style.display = 'none';
+                show.style.display = 'none';
+            };
+            pic.onmousemove = function (ev) {//鼠标移动事件
+                var l = ev.clientX- pic.offsetLeft-mask.offsetWidth/2;
+                //获取鼠标的位置
+                var t = ev.clientY- pic.offsetTop-mask.offsetHeight/2;
+                //获取鼠标的相对位置
+                if(l<0) l=0;//处理边界
+                if(l>pic.clientWidth-mask.offsetWidth){
+                	l=pic.clientWidth-mask.offsetWidth;
+                }
+                if(t<0) t=0;//处理边界
+                if(t>pic.clientHeight-mask.offsetHeight){
+                	t=pic.clientHeight-mask.offsetHeight;
+                }
+                mask.style.left = l+'px';
+                mask.style.top = t+'px';
+                //透明层的位置
+                bigPic.style.left = '-'+l*(pic.offsetWidth/mask.offsetWidth)+'px';
+           		bigPic.style.top = '-'+t*(pic.offsetHeight/mask.offsetHeight)+'px';
+           		//根据遮罩的位置显示出对应的大图片的位置
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="clearFix">
+    <div id="pic">
+        <img src="img/download.jpg" id="smallPic">
+        <div id="mask"></div>
+    </div>
+    <div id="show">
+        <img src="img/download.jpg" id="bigPic">
+    </div>
+</div>
+
+</body>
+</html>

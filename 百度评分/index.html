@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{
+				margin: 30px 100px;
+			}
+			p{
+				float: left;
+				margin: 0;
+				font-size: 20px;
+			}
+			img{
+				float: left;
+				margin-left: 0px;
+			}
+			#ps{
+				padding-left: 30px;
+				font-size: 20px;
+				font-style: normal;
+			}
+			.bg{
+				background: yellow;
+			}
+			.bg2{
+				background: grey;
+			}
+		</style>
+		<script type="text/javascript">
+		
+			/*
+			 1、当鼠标移入的时候，大于当前下标值的为白色星星
+			 		如果当前移入下标值小于2的时候所有小于等于当前下标值的
+			 		为白色星星，否则为黄色星星
+			 		如果当前状态为点击状态，鼠标移入之后点击状态消失
+			 		
+			 2、当鼠标移出的时候如果没有点击。所有星星变为白色，
+			 		如果当前状态为点击状态，移出之后恢复点击状态
+			 		
+			 3、鼠标点击之后大于当前点击下标值的为白色星星
+			 		如果当前移入下标值小于2的时候为灰色星星否则为黄色星星		 
+			 
+			  */	
+		
+		
+			window.onload = function(){
+				var imgs = document.getElementsByTagName('img');				
+			  	var ps = document.getElementById("ps");
+			  	var a = ['很差!','较差!','一般!','很好!','力荐!'];
+			  	var cur = true;//设置一个全局开关，用以判断是否点击
+			  	for (var i=0;i<imgs.length;i++) {
+			  		imgs[i].index = i;//获取当前元素的下标值			  		
+			  		var sta = 0;//用来记录点击之后的元素下标值			  		
+			  		imgs[i].onmouseover = function (){
+			  			for (var j=0; j<imgs.length;j++) {
+			  				imgs[j].src = "img/xing.png";//用来清除之前的样式
+			  			}
+			  			for (var j=0; j<= this.index; j++) {
+			  				if(this.index<2){//当移入下标值时小于二时图标为灰色
+			  					imgs[j].src = "img/xing1.png";			  					
+			  				}else{//当移入下标值时不小于二时图标为黄色
+			  					imgs[j].src = "img/xing2.png";
+			  				}
+			  			}	
+			  			ps.innerHTML = a[this.index];
+			  		}
+			  		imgs[i].onmouseout = function () {
+			  			if(cur){//判断当前值如果没点击时走以下代码
+			  				for (var j=0; j<imgs.length; j++) {
+			  					imgs[j].src = "img/xing.png";
+			  				}
+			  				ps.innerHTML = 'ps:点击星星可以评分哦！';
+			  			}else{
+			  				for (var j=0; j<imgs.length;j++) {
+			  				imgs[j].src = "img/xing.png";
+			  				}//清除之前的样式
+			  				for (var j=0; j<= sta; j++) {
+			  					if(sta<2){//如果保存的点击值小于二时
+			  						imgs[j].src = "img/xing1.png";
+			  						ps.innerHTML = a[j];
+			  					}else{//否则。。。
+			  						imgs[j].src = "img/xing2.png";
+			  						ps.innerHTML = a[j];
+			  					}
+			  				}
+			  			}			  				  			  			
+			  		}
+			  		imgs[i].onclick = function () {
+			  			sta = this.index;//保存以下点击之后的当前下标值
+			  			cur = false;//点击之后改变当前全局状态
+			  		}
+			  	}
+			};
+		</script>
+	</head>
+	<body>
+		<p>*总体评价:</p>
+		<img src="img/xing.png"/>
+		<img src="img/xing.png"/>
+		<img src="img/xing.png"/>
+		<img src="img/xing.png"/>
+		<img src="img/xing.png"/>
+		<em id="ps">ps:点击星星可以评分哦！</em>
+	</body>
+</html>

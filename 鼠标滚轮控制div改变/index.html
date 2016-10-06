@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+		body{
+			height: 3000px;
+		}
+			#box{
+				width: 100px;
+				height: 100px;
+				background: red;
+				border: 1px solid #000;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+			  	var box = document.getElementById("box");
+			  	box.onmousewheel = fn;
+			  	function fn(ev){
+			  		var onOff = true;
+			  		if(ev.wheelDelta){
+			  			onOff = ev.wheelDelta > 0?true : false;
+			  		}else{
+			  			onOff = ev.detail <0 ?true:false; 
+			  		}
+			  		if(onOff){
+			  			this.style.background = 'blue';  
+			  			this.style.height = this.offsetHeight -10+'px';
+			  		}else{
+			  			this.style.background = 'yellow';
+			  			this.style.height = this.offsetHeight +10+'px';
+			  		}
+			  		
+			  		if(ev.preventDefault){
+			  			ev.preventDefault()
+			  		}
+			  		return false
+			  	}
+			  	
+			  	if(box.addEventListener){
+			  		box.addEventListener('DOMMouseScroll',fn,false)
+			  	}
+			};
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			
+		</div>
+	</body>
+</html>
