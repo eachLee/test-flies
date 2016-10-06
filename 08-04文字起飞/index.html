@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			#box{
+				position: relative;
+				float: left;
+				margin-top: 200px;
+				height: 30px;
+				width: 580px;
+				line-height: 30px;
+				padding: 10px;
+				font-size: 24px;
+				border: 1px solid #000;
+			}
+			span{
+				position: absolute;
+				top: 0;
+				left: 0;
+				padding: 4px;
+			}
+			#box p{
+				margin: 0;
+				position: absolute;
+				left: 0;
+				top: 0;
+				z-index: -1;
+				height: 100%;
+				background: red;
+			}
+		</style>
+		<script src="js/tools.js"></script>
+		<script src="js/MTween3.js"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+			  	var box = $('#box');
+			  	var str = '<p id="loading"></p>';
+			  	for (var i = 0; i < 15; i++) {
+			  		str+='<span style="left:'+40*i+'px">+1</span>';
+			  	}
+			  	box.innerHTML = str;
+			  	var w = parseInt(getComputedStyle(box).width);
+			  	var spans = $('span',box);
+			  	var load = $('#loading');
+			  	var timer;
+			  	var onOff = true;
+			  	box.width = i*40+'px';//获取到box的宽度
+			  	box.onclick = function(){
+			  		if(!onOff) return;//为false时return
+			  		onOff = false;//把onOff设为false
+			  	  	MTween(load,{width:w+20,opacity:0},1500);
+			  	  	var n = 0;
+			  	  	timer = setInterval(function(){
+			  	  		MTween(spans[n],{top:-200,opacity:0},700);
+			  	  		n++
+			  	  		if(n>=spans.length-1){
+			  	  			setTimeout(function() {
+			  	  				for (var i = 0; i < spans.length; i++) {
+			  	  					spans[i].style.top = 0;
+			  	  					load.style.width = 0;
+			  	  					load.style.opacity = 1;
+					  	  			MTween(spans[i],{opacity:1},1000);
+					  	  		}
+			  	  				onOff = true;//运动结束改为true
+			  	  			},700)
+				  	  		
+				  	  	}
+			  	  		if(n>=spans.length){//清除定时器
+			  	  			clearInterval(timer);
+			  	  		}
+			  	  	},100)
+			  	  	
+			  	  	
+			  	};
+			};
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<!--<p id="loading"></p>
+			<span>+1</span>
+			<span>+1</span>
+			<span>+1</span>
+			<span>+1</span>
+			<span>+1</span>
+			<span>+1</span>
+			<span>+1</span>
+			<span>+1</span>
+			<span>+1</span>
+			<span>+1</span>
+			<span>+1</span>
+			<span>+1</span>
+			<span>+1</span>-->
+		</div>
+	</body>
+</html>
