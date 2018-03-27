@@ -1,94 +1,102 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		<style>
-			body{
-				margin: 30px 100px;
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		body {
+			margin: 30px 100px;
+		}
+
+		p {
+			float: left;
+			margin: 0;
+			font-size: 20px;
+		}
+
+		img {
+			float: left;
+			margin-left: 0px;
+		}
+
+		#ps {
+			padding-left: 30px;
+			font-size: 20px;
+			font-style: normal;
+		}
+
+		.bg {
+			background: yellow;
+		}
+
+		.bg2 {
+			background: grey;
+		}
+	</style>
+	<script src="js/tools.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		window.onload = function () {
+			var imgs = $('img');
+			var ps = $("#ps");
+			var a = ['很差!', '较差!', '一般!', '很好!', '力荐!'];
+			var cur = true;
+			for (var i = 0; i < imgs.length; i++) {
+				imgs[i].index = i;
+				var sta = 0;
+				imgs[i].onmouseover = function () {
+					for (var j = 0; j < imgs.length; j++) {
+						imgs[j].src = './img/xing.png';
+					}
+					for (var m = 0; m <= this.index; m++) {
+						if (this.index < 2) {
+							imgs[m].src = "./img/xing1.png";
+
+						} else {
+							imgs[m].src = "./img/xing2.png";
+						}
+						ps.innerHTML = a[this.index];
+					}
+				};
+				imgs[i].onmouseout = function () {
+					if (cur) {
+						for (var i = 0; i < imgs.length; i++) {
+							imgs[i].src = "./img/xing.png";
+						}
+						ps.innerHTML = 'ps:点击星星可以评分哦！';
+					} else {
+						for (var j = 0; j < imgs.length; j++) {
+							imgs[j].src = "./img/xing.png";
+						}
+						for (var m = 0; m <= sta; m++) {
+							if (sta < 2) {
+								imgs[m].src = "./img/xing1.png";
+							} else {
+								imgs[m].src = "./img/xing2.png";
+							}
+							ps.innerHTML = a[m];
+						}
+
+					}
+
+				};
+				imgs[i].onclick = function () {
+					cur = false;
+					sta = this.index;
+				};
 			}
-			p{
-				float: left;
-				margin: 0;
-				font-size: 20px;
-			}
-			img{
-				float: left;
-				margin-left: 0px;
-			}
-			#ps{
-				padding-left: 30px;
-				font-size: 20px;
-				font-style: normal;
-			}
-			.bg{
-				background: yellow;
-			}
-			.bg2{
-				background: grey;
-			}
-		</style>
-		<script src="js/tools.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript">
-			window.onload = function(){
-				var imgs = $('img');				
-			  	var ps = $("#ps");
-			  	var a = ['很差!','较差!','一般!','很好!','力荐!'];
-			  	var cur = true;
-			  	for (var i = 0; i < imgs.length; i++) {
-			  		imgs[i].index = i;
-			  		var sta = 0;
-			  		imgs[i].onmouseover = function(){
-			  		  	for (var j=0;j<imgs.length;j++) {
-			  		  		imgs[j].src = './img/xing.png';
-			  		  	}
-			  		  	for (var m=0;m<=this.index;m++) {
-			  		  		if(this.index<2){
-			  		  			imgs[m].src = "./img/xing1.png";
-			  		  			
-			  		  		}else{
-			  		  			imgs[m].src = "./img/xing2.png";
-			  		  		}
-			  		  		ps.innerHTML = a[this.index];
-			  		  	}
-			  		};
-			  		imgs[i].onmouseout = function(){			  			
-			  			if(cur){
-			  				for (var i = 0; i < imgs.length; i++) {
-				  		  		imgs[i].src = "./img/xing.png";
-				  		  	}  
-				  		  	ps.innerHTML = 'ps:点击星星可以评分哦！';
-			  			}else{
-			  				for (var j =0;j<imgs.length; j++) {
-			  					imgs[j].src = "./img/xing.png";
-			  				}
-			  				for (var m = 0; m<=sta; m++) {
-			  					if(sta<2){
-				  					imgs[m].src = "./img/xing1.png";
-				  				}else{
-				  					imgs[m].src = "./img/xing2.png";
-				  				}
-				  				ps.innerHTML = a[m];
-			  				}
-			  				
-			  			}
-			  		  	
-			  		};
-			  		imgs[i].onclick = function(){
-			  		  	  cur = false;
-			  		  	  sta = this.index;
-			  		};
-			  	}
-			};
-		</script>
-	</head>
-	<body>
-		<p>*总体评价:</p>
-		<img src="./img/xing.png"/>
-		<img src="./img/xing.png"/>
-		<img src="./img/xing.png"/>
-		<img src="./img/xing.png"/>
-		<img src="./img/xing.png"/>
-		<em id="ps">ps:点击星星可以评分哦！</em>
-	</body>
+		};
+	</script>
+</head>
+
+<body>
+	<p>*总体评价:</p>
+	<img src="./img/xing.png" />
+	<img src="./img/xing.png" />
+	<img src="./img/xing.png" />
+	<img src="./img/xing.png" />
+	<img src="./img/xing.png" />
+	<em id="ps">ps:点击星星可以评分哦！</em>
+</body>
+
 </html>

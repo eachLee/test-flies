@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        li {
+            list-style: none;
+        }
+
+        ul,
+        li {
+            margin: 0;
+            padding: 0
+        }
+
+        #box {
+            overflow: hidden;
+            width: 902px;
+            height: 280px;
+        }
+
+        #box li {
+            float: left;
+            width: calc(600px/6);
+            height: 100%;
+            background: #000;
+        }
+
+        img {
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul id="box">
+        <li style="background:red">
+            <img src="img/1.jpg">
+        </li>
+        <li style="background:orange">
+            <img src="img/2.jpg">
+        </li>
+        <li style="background:yellow">
+            <img src="img/3.jpg">
+        </li>
+        <li style="background:green">
+            <img src="img/4.jpg">
+        </li>
+        <li style="background:blue">
+            <img src="img/5.jpg">
+        </li>
+        <li style="background:pink">
+            <img src="img/6.jpg">
+        </li>
+        <li style="background:black">
+            <img src="img/7.jpg">
+        </li>
+    </ul>
+    <script src="js/copy.js"></script>
+</body>
+
+</html>

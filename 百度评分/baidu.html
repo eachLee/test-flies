@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body {
+            margin: 30px 100px;
+        }
+
+        p {
+            float: left;
+            margin: 0;
+            font-size: 20px;
+        }
+
+        img {
+            float: left;
+            margin-left: 0px;
+        }
+
+        #ps {
+            padding-left: 30px;
+            font-size: 20px;
+            font-style: normal;
+        }
+
+        .bg {
+            background: yellow;
+        }
+
+        .bg2 {
+            background: grey;
+        }
+    </style>
+    <script src="js/tools.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+    <p>*总体评价:</p>
+    <img src="./img/xing.png" />
+    <img src="./img/xing.png" />
+    <img src="./img/xing.png" />
+    <img src="./img/xing.png" />
+    <img src="./img/xing.png" />
+    <em id="ps">ps:点击星星可以评分哦！</em>
+    <script type="text/javascript">
+        var imgs = $('img');
+        var ps = $("#ps");
+        var a = ['很差!', '较差!', '一般!', '很好!', '力荐!'];
+        var cur = false;
+        var clickNum;
+        for (let i = 0; i < imgs.length; i++) {
+            imgs[i].index = i;
+            imgs[i].onmouseover = function () {
+                let num = this.index;
+                ps.innerHTML = a[num];
+                for (let n = 0; n <= num; n++) {
+                    if (num < 2) {
+                        for (let n = 0; n <= num; n++) {
+                            imgs[n].src = "./img/xing1.png"
+                        }
+                    } else {
+                        for (let n = 0; n <= num; n++) {
+                            imgs[n].src = "./img/xing2.png"
+                        }
+                    }
+
+                }
+                for (let n = num + 1; n < imgs.length; n++) {
+                    imgs[n].src = "./img/xing.png"
+                }
+
+            }
+            imgs[i].onmouseout = function () {
+                if (cur) {
+                    if (clickNum) {
+                        ps.innerHTML = a[clickNum];
+                        for (let n = 0; n < clickNum; n++) {
+                            if (clickNum < 2) {
+                                for (let n = 0; n <= clickNum; n++) {
+                                    imgs[n].src = "./img/xing1.png"
+                                }
+                            } else {
+                                for (let n = 0; n <= clickNum; n++) {
+                                    imgs[n].src = "./img/xing2.png"
+                                }
+                            }
+
+                        }
+                        for (let n = clickNum + 1; n < imgs.length; n++) {
+                            imgs[n].src = "./img/xing.png";
+                        }
+                    } else {
+                        ps.innerHTML = 'ps:点击星星可以评分哦';
+                        for (let n = 0; n < imgs.length; n++) {
+                            imgs[n].src = "./img/xing.png";
+                        }
+                    }
+                } else {
+                    ps.innerHTML = 'ps:点击星星可以评分哦';
+                    for (let n = 0; n < imgs.length; n++) {
+                        imgs[n].src = "./img/xing.png";
+                    }
+                }
+            }
+            imgs[i].onclick = function () {
+                clickNum = this.index;
+                cur = true;
+            }
+        }
+    </script>
+</body>
+
+</html>
