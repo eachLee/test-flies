@@ -58,7 +58,12 @@
 		var lefts = [];
 		var ranArr = [];
 		var z = 1;
-		
+		function hasTouch() {
+			var touchObj = {};
+			touchObj.isSupportTouch = 'ontouchend' in document ? true : false;
+			touchObj.isEvent = touchObj.isSupportTouch ? 'touchstart' : 'click';
+			return touchObj.isSupportTouch;
+		}
 		for(var i=0; i<allLi.length; i++){
 			lefts.push({left:allLi[i].offsetLeft,top:allLi[i].offsetTop})
 		}
@@ -72,38 +77,74 @@
 		
 		for(var i=0; i<allLi.length; i++){
 			allLi[i].index = i;
-			allLi[i].onmousedown = function (e){
-				this.style.zIndex = z++;
-				var disX = e.clientX - this.offsetLeft;
-				var disY = e.clientY - this.offsetTop;
-				var _this = this;
-				document.onmousemove = function (e){
-					_this.style.left = e.clientX - disX + 'px';
-					_this.style.top = e.clientY - disY + 'px';
-					for(var i=0; i<allLi.length; i++){
-						allLi[i].style.border = '';
+			if(hasTouch()){
+				allLi[i].ontouchstart=function (e){
+					this.style.zIndex = z++;
+					var disX = e.touches[0].clientX - this.offsetLeft;
+					var disY = e.touches[0].clientY - this.offsetTop;
+					var _this = this;
+					document.ontouchmove = function (e){
+						_this.style.left = e.touches[0].clientX - disX + 'px';
+						_this.style.top = e.touches[0].clientY - disY + 'px';
+						for(var i=0; i<allLi.length; i++){
+							allLi[i].style.border = '';
+						}
+						var tg = pz(_this);
+						if(tg){
+							tg.style.border = '1px solid red';
+						}
 					}
-					var tg = pz(_this);
-					if(tg){
-						tg.style.border = '1px solid red';
+					document.ontouchend = function (e){
+						this.onmousemove = this.onmouseup = null;
+						var tg = pz(_this);
+						if(tg){
+							MTween(_this,{top:lefts[tg.index].top,left:lefts[tg.index].left},200);
+							MTween(tg,{top:lefts[_this.index].top,left:lefts[_this.index].left},200);
+							tg.style.border = '';
+							var temp = _this.index;
+							_this.index = tg.index;
+							tg.index = temp;
+							
+						}else{
+							MTween(_this,{top:lefts[_this.index].top,left:lefts[_this.index].left},200);
+						}
 					}
+					return false;
 				}
-				document.onmouseup = function (e){
-					this.onmousemove = this.onmouseup = null;
-					var tg = pz(_this);
-					if(tg){
-						MTween(_this,{top:lefts[tg.index].top,left:lefts[tg.index].left},200);
-						MTween(tg,{top:lefts[_this.index].top,left:lefts[_this.index].left},200);
-						tg.style.border = '';
-						var temp = _this.index;
-						_this.index = tg.index;
-						tg.index = temp;
-						
-					}else{
-						MTween(_this,{top:lefts[_this.index].top,left:lefts[_this.index].left},200);
+			}else{
+				allLi[i].onmousedown = function (e){
+					this.style.zIndex = z++;
+					var disX = e.clientX - this.offsetLeft;
+					var disY = e.clientY - this.offsetTop;
+					var _this = this;
+					document.onmousemove = function (e){
+						_this.style.left = e.clientX - disX + 'px';
+						_this.style.top = e.clientY - disY + 'px';
+						for(var i=0; i<allLi.length; i++){
+							allLi[i].style.border = '';
+						}
+						var tg = pz(_this);
+						if(tg){
+							tg.style.border = '1px solid red';
+						}
 					}
-				}
-				return false;
+					document.onmouseup = function (e){
+						this.onmousemove = this.onmouseup = null;
+						var tg = pz(_this);
+						if(tg){
+							MTween(_this,{top:lefts[tg.index].top,left:lefts[tg.index].left},200);
+							MTween(tg,{top:lefts[_this.index].top,left:lefts[_this.index].left},200);
+							tg.style.border = '';
+							var temp = _this.index;
+							_this.index = tg.index;
+							tg.index = temp;
+							
+						}else{
+							MTween(_this,{top:lefts[_this.index].top,left:lefts[_this.index].left},200);
+						}
+					}
+					return false;
+				}				
 			}
 		}
 		sort.onclick = function (){
